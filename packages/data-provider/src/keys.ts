@@ -1,4 +1,6 @@
 export enum QueryKeys {
+  guestCapabilities = 'guestCapabilities',
+  researchReport = 'researchReport',
   messages = 'messages',
   sharedMessages = 'sharedMessages',
   sharedStartupConfig = 'sharedStartupConfig',
@@ -95,6 +97,10 @@ export const DynamicQueryKeys = {
 } as const;
 
 export enum MutationKeys {
+  guestTurn = 'guestTurn',
+  guestClear = 'guestClear',
+  researchRefresh = 'researchRefresh',
+  researchArchive = 'researchArchive',
   updateLangfuseConnection = 'updateLangfuseConnection',
   testLangfuseConnection = 'testLangfuseConnection',
   createAgentApiKey = 'createAgentApiKey',

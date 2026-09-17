@@ -7,14 +7,11 @@
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta
-      name="description"
-      content="LibreChat - An open source chat application with support for multiple AI models"
-    />
-    <title>LibreChat</title>
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png" />
-    <link rel="apple-touch-icon" href="assets/apple-touch-icon-180x180.png" />
+    <meta name="description" content="Vaffyn" />
+    <title>Vaffyn</title>
+    <link rel="icon" type="image/svg+xml" href="assets/vaffyn.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/vaffyn-32.png" />
+    <link rel="apple-touch-icon" href="assets/vaffyn-180.png" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, interactive-widget=resizes-content"
@@ -28,7 +25,8 @@
       }
     </style>
     <script>
-      const theme = localStorage.getItem('color-theme');
+      const theme = localStorage.getItem('color-theme') || 'dark';
+      if (!localStorage.getItem('color-theme')) localStorage.setItem('color-theme', 'dark');
       const loadingContainerStyle = document.createElement('style');
       let backgroundColor;
 
@@ -162,12 +160,16 @@
               el.tagName === 'LINK' && /preload/.test(el.rel || '') && /\.js$/.test(el.href || '');
             if (failedScript || failedPreload) {
               var isRumBootstrap = el.getAttribute('data-lc-rum-bootstrap') === 'true';
+              /* Locale chunks have an English fallback; reloading would discard unsent drafts. */
+              var isLocaleChunk = /\/assets\/locale-[^/?#]+\.js(?:[?#]|$)/.test(
+                el.src || el.href || '',
+              );
               window.__lcRumPush('asset-load-error', {
                 tagName: el.tagName,
                 assetUrl: el.src || el.href,
-                optional: isRumBootstrap,
+                optional: isRumBootstrap || isLocaleChunk,
               });
-              if (isRumBootstrap) {
+              if (isRumBootstrap || isLocaleChunk) {
                 return;
               }
               window.__lcRecoverStaleAssets();

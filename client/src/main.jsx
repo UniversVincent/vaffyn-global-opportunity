@@ -1,6 +1,7 @@
 import './polyfills/regeneratorRuntime';
 import { createRoot } from 'react-dom/client';
 import { initializeI18n } from './locales/i18n';
+import { isLocaleLoadError } from './locales/assets';
 import App from './App';
 import '@librechat/client/style.css';
 import './style.css';
@@ -10,6 +11,9 @@ import 'katex/dist/katex.min.css';
 import 'katex/dist/contrib/copy-tex.js';
 
 window.addEventListener('vite:preloadError', (event) => {
+  if (isLocaleLoadError(event.payload)) {
+    return;
+  }
   if (window.__lcRecoverStaleAssets?.()) {
     event.preventDefault();
   }

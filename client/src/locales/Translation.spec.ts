@@ -3,6 +3,8 @@ import {
   __resetLocaleForTests,
   __setLocaleLoaderForTests,
   changeLanguageSafely,
+  detectInitialLanguage,
+  getLanguagePreference,
   ensureLocale,
   initializeI18n,
   normalizeLocale,
@@ -10,6 +12,8 @@ import {
 import English from './en/translation.json';
 import Spanish from './es/translation.json';
 import French from './fr/translation.json';
+import Simplified from './zh-Hans/translation.json';
+import Traditional from './zh-Hant/translation.json';
 import { TranslationKeys } from '~/hooks';
 import i18n from './i18n';
 
@@ -190,4 +194,54 @@ describe('i18next translation tests', () => {
     __resetLocaleForTests('sv');
     __resetLocaleForTests('sl');
   });
+});
+
+describe('Chinese-first product localization', () => {
+  beforeEach(() => {
+    localStorage.removeItem('lang');
+    document.cookie = 'lang=; Max-Age=0; path=/';
+  });
+
+  afterEach(async () => {
+    localStorage.removeItem('lang');
+    document.cookie = 'lang=; Max-Age=0; path=/';
+    await changeLanguageSafely('en');
+  });
+
+  it('defaults new users to Simplified Chinese regardless of browser language', () => {
+    expect(getLanguagePreference()).toBe('zh-Hans');
+    expect(detectInitialLanguage()).toBe('zh-Hans');
+  });
+
+  it.each(['en', 'zh-Hant', 'fr-FR', 'auto'])('preserves a saved %s preference', (language) => {
+    localStorage.setItem('lang', JSON.stringify(language));
+    expect(getLanguagePreference()).toBe(language);
+    expect(detectInitialLanguage()).toBe(normalizeLocale(language));
+  });
+
+  it('honors the existing cookie precedence and raw-storage format', () => {
+    localStorage.setItem('lang', 'en');
+    expect(detectInitialLanguage()).toBe('en');
+    document.cookie = 'lang=zh-Hant; path=/';
+    expect(detectInitialLanguage()).toBe('zh-Hant');
+  });
+
+  it.each([
+    ['zh-Hans', Simplified],
+    ['zh-Hant', Traditional],
+  ] as const)(
+    'provides every product key in %s without English fallback',
+    async (language, translations) => {
+      const keys = Object.keys(English).filter((key) =>
+        /^com_ui_(overseas_|starter|brand_|service_error|language_)/.test(key),
+      );
+      await changeLanguageSafely(language);
+      for (const key of keys) {
+        expect(translations).toHaveProperty(key);
+        expect(i18n.exists(key, { lng: language, fallbackLng: [] })).toBe(true);
+      }
+      expect(i18n.t('com_ui_overseas_jobs_prompt')).toBe(translations.com_ui_overseas_jobs_prompt);
+      expect(document.documentElement.lang).toBe(language);
+    },
+  );
 });

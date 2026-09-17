@@ -215,10 +215,14 @@ export function normalizeLocale(locale?: string | null): SupportedLocale {
   return localeByLowercase[base] ?? localeAliases[base] ?? 'en';
 }
 
-export function detectInitialLanguage() {
+export function getLanguagePreference() {
   const cookieLang = readCookie('lang');
   const storedLang = readStoredLanguage();
-  return normalizeLocale(cookieLang || storedLang || getNavigatorLanguage());
+  return cookieLang || storedLang || 'zh-Hans';
+}
+
+export function detectInitialLanguage() {
+  return normalizeLocale(getLanguagePreference());
 }
 
 export async function ensureLocale(locale?: string | null): Promise<SupportedLocale> {

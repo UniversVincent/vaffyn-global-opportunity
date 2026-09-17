@@ -189,3 +189,16 @@ CLAUDE.md
 .gsd
 codedb.snapshot
 scripts/activity-labels/results/
+/packages/api/research-dist/
+# Isolated local account adapter build; databases live outside the workspace.
+packages/data-schemas/preview-dist/
+
+# Local-only product operations and release evidence. These files can contain
+# deployment topology, account state, generated test artifacts, or credentials.
+/.quarkclouddrive/
+/privatecloud/
+/docs/overseas-ai/
+/e2e/test-results/
+/e2e/e2e/
+/PROJECT_STATE.md
+/DEPLOYMENT.zh.md

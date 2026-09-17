@@ -1,0 +1,51 @@
+name: Preview CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: preview-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  focused-verification:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24.16.0
+          cache: npm
+      - run: npm ci
+      - name: Focused client tests
+        working-directory: client
+        run: >-
+          npx jest --ci --runInBand
+          src/components/Auth/__tests__/Login.spec.tsx
+          src/components/Chat/Input/__tests__/StarterList.spec.tsx
+          src/components/Chat/__tests__/Footer.spec.tsx
+          src/components/Overseas/__tests__/Preparation.spec.tsx
+          src/components/Overseas/Guest/__tests__/documents.spec.ts
+          src/components/__tests__/QueryDevtoolsGate.spec.tsx
+          src/locales/Translation.spec.ts
+          src/locales/assets.spec.ts
+          src/routes/__tests__/RouteErrorBoundary.spec.tsx
+      - name: Guest and research API tests
+        working-directory: packages/api
+        run: >-
+          npx jest --ci --runInBand
+          src/guest/guest.spec.ts
+          src/guest/membership.spec.ts
+          src/research/research.spec.ts
+      - name: Research TypeScript checks
+        run: |
+          npx tsc -p packages/api/tsconfig.research.json --noEmit
+          npx tsc -p packages/data-schemas/tsconfig.preview.json --noEmit

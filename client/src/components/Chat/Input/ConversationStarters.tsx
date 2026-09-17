@@ -1,4 +1,4 @@
-import { useMemo, useCallback } from 'react';
+import { useMemo } from 'react';
 import { EModelEndpoint, Constants } from 'librechat-data-provider';
 import {
   useGetAssistantDocsQuery,
@@ -6,11 +6,13 @@ import {
   useGetStartupConfig,
 } from '~/data-provider';
 import { useChatContext, useAgentsMapContext, useAssistantsMapContext } from '~/Providers';
+import useOverseasStarters from '~/components/Overseas/starters';
 import { getIconEndpoint, getEntity, getModelSpec } from '~/utils';
-import { useSubmitMessage } from '~/hooks';
+import StarterList from './StarterList';
 
 const ConversationStarters = () => {
-  const { conversation } = useChatContext();
+  const { conversation, isSubmitting } = useChatContext();
+  const overseasStarters = useOverseasStarters();
   const agentsMap = useAgentsMapContext();
   const assistantMap = useAssistantsMapContext();
   const { data: endpointsConfig } = useGetEndpointsQuery();
@@ -32,7 +34,7 @@ const ConversationStarters = () => {
     select: (data) => new Map(data.map((dbA) => [dbA.assistant_id, dbA])),
   });
 
-  const { entity, isAgent } = getEntity({
+  const { entity, isAgent, isAssistant } = getEntity({
     endpoint: endpointType,
     agentsMap,
     assistantMap,
@@ -61,30 +63,30 @@ const ConversationStarters = () => {
     return documentsMap.get(entity?.id ?? '')?.conversation_starters ?? [];
   }, [documentsMap, isAgent, entity, modelSpec]);
 
-  const { submitMessage } = useSubmitMessage();
-  const sendConversationStarter = useCallback(
-    (text: string) => submitMessage({ text }),
-    [submitMessage],
-  );
-
-  if (!conversation_starters.length) {
+  const starters = conversation_starters.length
+    ? conversation_starters.slice(0, Constants.MAX_CONVO_STARTERS).map((text) => ({ text }))
+    : overseasStarters;
+  if (
+    !conversation_starters.length &&
+    (isAgent || isAssistant || modelSpec || !conversation?.endpoint)
+  ) {
     return null;
   }
 
   return (
-    <div className="mb-8 mt-2 flex w-full flex-wrap items-stretch justify-center gap-2 px-4">
-      {conversation_starters
-        .slice(0, Constants.MAX_CONVO_STARTERS)
-        .map((text: string, index: number) => (
-          <button
-            key={index}
-            onClick={() => sendConversationStarter(text)}
-            style={{ animationDelay: `${index * 75}ms`, animationFillMode: 'backwards' }}
-            className="flex max-w-[16rem] cursor-pointer items-center justify-center rounded-2xl border border-border-medium bg-surface-secondary px-4 py-2.5 text-center text-sm text-text-secondary shadow-sm transition-colors duration-200 fade-in hover:border-border-heavy hover:bg-surface-tertiary hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring-primary"
-          >
-            <span className="line-clamp-2 text-balance break-words">{text}</span>
-          </button>
-        ))}
+    <div className="mb-6 mt-2 w-full px-4">
+      <StarterList
+        key={JSON.stringify([
+          conversation?.conversationId,
+          conversation?.endpoint,
+          conversation?.model,
+          conversation?.agent_id,
+          conversation?.assistant_id,
+          conversation?.spec,
+        ])}
+        starters={starters}
+        disabled={isSubmitting}
+      />
     </div>
   );
 };

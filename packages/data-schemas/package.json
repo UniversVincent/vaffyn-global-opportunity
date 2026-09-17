@@ -33,6 +33,7 @@
     "dist"
   ],
   "scripts": {
+    "build:preview": "tsc -p tsconfig.preview.json",
     "clean": "rimraf dist",
     "build": "npm run clean && tsdown",
     "build:watch": "tsdown --watch",

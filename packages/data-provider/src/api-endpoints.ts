@@ -535,3 +535,16 @@ export const getAllEffectivePermissions = (resourceType: ResourceType) =>
 // SharePoint Graph API Token
 export const graphToken = (scopes: string) =>
   `${BASE_URL}/api/auth/graph-token?scopes=${encodeURIComponent(scopes)}`;
+export const researchReport = () => `${apiBaseUrl()}/api/research/sample`;
+export const researchRefresh = () => `${researchReport()}/refresh`;
+export const researchArchive = (id: string) =>
+  `${researchReport()}/archive/${encodeURIComponent(id)}`;
+
+export const guestCapabilities = () => `${apiBaseUrl()}/api/guest/capabilities`;
+export const guestTurn = () => `${apiBaseUrl()}/api/guest/turn`;
+export const guestSession = () => `${apiBaseUrl()}/api/guest/session`;
+export const guestState = () => `${apiBaseUrl()}/api/guest/state`;
+export const guestProfile = () => `${apiBaseUrl()}/api/guest/profile`;
+export const guestDismiss = () => `${apiBaseUrl()}/api/guest/proposals/dismiss`;
+export const guestAccount = (action: 'login' | 'register' | 'logout') =>
+  `${apiBaseUrl()}/api/guest/account/${action}`;

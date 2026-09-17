@@ -10,6 +10,10 @@ import {
 } from '~/components/Auth';
 import { MarketplaceProvider } from '~/components/Agents/MarketplaceContext';
 import AgentMarketplace from '~/components/Agents/Marketplace';
+import Preparation from '~/components/Overseas/Preparation';
+import Research from '~/components/Overseas/Research';
+import Guest from '~/components/Overseas/Guest';
+import ResearchGate from '~/components/Overseas/Guest/Gate';
 import { OAuthSuccess, OAuthError } from '~/components/OAuth';
 import { AuthContextProvider } from '~/hooks/AuthContext';
 import RouteErrorBoundary from './RouteErrorBoundary';
@@ -56,6 +60,29 @@ const baseHref = baseEl?.getAttribute('href') || '/';
 
 export const router = createBrowserRouter(
   [
+    {
+      path: '/',
+      element: <Guest />,
+      errorElement: <RouteErrorBoundary />,
+    },
+    {
+      path: 'research',
+      element: (
+        <ResearchGate>
+          <Research />
+        </ResearchGate>
+      ),
+      errorElement: <RouteErrorBoundary />,
+    },
+    {
+      path: 'prepare',
+      element: (
+        <ResearchGate>
+          <Preparation />
+        </ResearchGate>
+      ),
+      errorElement: <RouteErrorBoundary />,
+    },
     {
       path: 'share/:shareId',
       element: <ShareRoute />,
@@ -122,10 +149,6 @@ export const router = createBrowserRouter(
           path: '/',
           element: <Root />,
           children: [
-            {
-              index: true,
-              element: <Navigate to="/c/new" replace={true} />,
-            },
             {
               path: 'c/:conversationId?',
               element: <ChatRoute />,

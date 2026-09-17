@@ -222,12 +222,12 @@ describe('useRum', () => {
     );
   });
 
-  it('initializes proxy RUM with the LibreChat bearer token for same-origin ingest', async () => {
+  it('initializes proxy RUM with a browser fetch without preconnect', async () => {
     const fetchMock = jest.fn(
       (_input: RequestInfo | URL, _init?: RequestInit): Promise<Response> =>
         Promise.resolve({ ok: true, status: 200 } as Response),
     );
-    window.fetch = Object.assign(fetchMock, { preconnect: () => undefined });
+    window.fetch = fetchMock;
     mockUseGetStartupConfig.mockReturnValue({
       isFetched: true,
       data: {

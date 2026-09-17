@@ -44,8 +44,9 @@ export default function StartupLayout({ isAuthenticated }: { isAuthenticated?: b
   }, [isAuthenticated, navigate, data]);
 
   useEffect(() => {
-    document.title = startupConfig?.appTitle || 'LibreChat';
-  }, [startupConfig?.appTitle]);
+    const title = startupConfig?.appTitle;
+    document.title = title && title !== 'LibreChat' ? title : localize('com_ui_brand_name');
+  }, [startupConfig?.appTitle, localize]);
 
   useEffect(() => {
     setError(null);

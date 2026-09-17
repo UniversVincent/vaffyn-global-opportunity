@@ -1,0 +1,34 @@
+name: Bug report
+description: Report a reproducible problem without including private data.
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Remove API keys, resumes, personal profiles, cookies, and private URLs before submitting.
+  - type: textarea
+    id: behavior
+    attributes:
+      label: What happened?
+      description: Describe the actual and expected behavior.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Reproduction
+      description: Give the smallest reproducible sequence and relevant sanitized configuration.
+    validations:
+      required: true
+  - type: input
+    id: commit
+    attributes:
+      label: Commit or version
+      placeholder: git commit SHA
+    validations:
+      required: true
+  - type: textarea
+    id: verification
+    attributes:
+      label: Verification performed
+      description: List tests or commands already run and their results.

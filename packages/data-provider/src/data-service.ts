@@ -1,4 +1,14 @@
 import type { AxiosResponse } from 'axios';
+import type { ResearchArchive, ResearchResponse } from './types/research';
+import type {
+  GuestCapabilities,
+  GuestOutcome,
+  GuestRequest,
+  GuestState,
+  OverseasProfile,
+  LocalAccountInput,
+  AccountOutcome,
+} from './types/guest';
 import type { TFileConfig } from './file-config';
 import type * as t from './types';
 import * as permissions from './accessPermissions';
@@ -15,6 +25,35 @@ import * as config from './config';
 import request from './request';
 import * as s from './schemas';
 import * as r from './roles';
+
+export const getResearchReport = (): Promise<ResearchResponse> =>
+  request.get(endpoints.researchReport());
+
+export const refreshResearchReport = (): Promise<ResearchResponse> =>
+  request.post(endpoints.researchRefresh(), {});
+
+export const getResearchArchive = (id: string): Promise<ResearchArchive> =>
+  request.get(endpoints.researchArchive(id));
+
+export const getGuestCapabilities = (): Promise<GuestCapabilities> =>
+  request.get(endpoints.guestCapabilities());
+export const sendGuestTurn = (body: GuestRequest): Promise<GuestOutcome> =>
+  request.post(endpoints.guestTurn(), body);
+export const clearGuestSession = (): Promise<{ cleared: true }> =>
+  request.delete(endpoints.guestSession());
+export const getGuestState = (): Promise<GuestState> => request.get(endpoints.guestState());
+export const dismissGuestProposal = (requestId: string): Promise<{ status: 'ok' | 'conflict' }> =>
+  request.post(endpoints.guestDismiss(), { requestId });
+export const updateGuestProfile = (
+  body: OverseasProfile,
+): Promise<{ status: 'ok' | 'conflict'; profile: OverseasProfile }> =>
+  request.put(endpoints.guestProfile(), body);
+export const guestAccountAction = (
+  action: 'login' | 'register',
+  body: LocalAccountInput,
+): Promise<AccountOutcome> => request.post(endpoints.guestAccount(action), body);
+export const guestLogout = (): Promise<{ status: 'ok' }> =>
+  request.post(endpoints.guestAccount('logout'), {});
 
 export function getLangfuseConnection(): Promise<t.TLangfuseConnectionStatus> {
   return request.get(endpoints.adminLangfuseConnection());

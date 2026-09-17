@@ -1,260 +1,135 @@
 <p align="center">
-  <a href="https://librechat.ai">
-    <img src="client/public/assets/logo.svg" height="256">
-  </a>
-  <h1 align="center">
-    <a href="https://librechat.ai">LibreChat</a>
-  </h1>
+  <img src="client/public/assets/vaffyn.svg" width="88" alt="Vaffyn logo">
+</p>
+
+<h1 align="center">Vaffyn Global Opportunity Assistant</h1>
+
+<p align="center">
+  A Chinese-first, multilingual open-source assistant for researching global jobs and overseas opportunities.
 </p>
 
 <p align="center">
-  <strong>English</strong> ·
-  <a href="README.zh.md">中文</a>
+  <strong>English</strong> · <a href="README.zh.md">简体中文</a> ·
+  <a href="https://avenory.vaffyn.com/">Live preview</a>
 </p>
 
-<p align="center">
-  <a href="https://discord.librechat.ai"> 
-    <img
-      src="https://img.shields.io/discord/1086345563026489514?label=&logo=discord&style=for-the-badge&logoWidth=20&logoColor=white&labelColor=000000&color=blueviolet">
-  </a>
-  <a href="https://www.youtube.com/@LibreChat"> 
-    <img
-      src="https://img.shields.io/badge/YOUTUBE-red.svg?style=for-the-badge&logo=youtube&logoColor=white&labelColor=000000&logoWidth=20">
-  </a>
-  <a href="https://docs.librechat.ai"> 
-    <img
-      src="https://img.shields.io/badge/DOCS-blue.svg?style=for-the-badge&logo=read-the-docs&logoColor=white&labelColor=000000&logoWidth=20">
-  </a>
-  <a aria-label="Sponsors" href="https://github.com/sponsors/danny-avila">
-    <img
-      src="https://img.shields.io/badge/SPONSORS-brightgreen.svg?style=for-the-badge&logo=github-sponsors&logoColor=white&labelColor=000000&logoWidth=20">
-  </a>
-</p>
+> Early public preview. The core interaction and research prototypes are usable, but this repository is not production-ready and several paid or data-intensive features are intentionally not connected yet.
 
-<p align="center">
-<a href="https://railway.com/deploy/librechat-official?referralCode=HI9hWz&utm_medium=integration&utm_source=readme&utm_campaign=librechat">
-  <img src="https://railway.com/button.svg" alt="Deploy on Railway" height="30">
-</a>
-<a href="https://zeabur.com/templates/0X2ZY8">
-  <img src="https://zeabur.com/button.svg" alt="Deploy on Zeabur" height="30"/>
-</a>
-<a href="https://template.cloud.sealos.io/deploy?templateName=librechat">
-  <img src="https://raw.githubusercontent.com/labring-actions/templates/main/Deploy-on-Sealos.svg" alt="Deploy on Sealos" height="30">
-</a>
-</p>
+## Mission
 
-<p align="center">
-  <a href="https://www.librechat.ai/docs/translation">
-    <img 
-      src="https://img.shields.io/badge/dynamic/json.svg?style=for-the-badge&color=2096F3&label=locize&query=%24.translatedPercentage&url=https://api.locize.app/badgedata/4cb2598b-ed4d-469c-9b04-2ed531a8cb45&suffix=%+translated" 
-      alt="Translation Progress">
-  </a>
-</p>
+Job seekers should not need to understand every overseas job board, government site, or policy manual before they can explore a wider set of options. This project is building a chat-first research assistant that helps a user:
 
-## 🚀 What's New in v0.8.8-rc1
+- explain their experience naturally in Chinese or another supported language;
+- answer only the follow-up questions that can change the research direction;
+- build a confirmed, reusable overseas profile instead of completing one long form;
+- research current job and policy information with traceable sources; and
+- understand what is known, what is missing, and what still requires a qualified professional.
 
-- **Agent run control:** Interrupt or steer an Agent mid-run, queue follow-up messages, and reclaim, edit, or escalate pending steers.
-- **Human-in-the-loop Agents:** Agents stream question progress, ask up to four related questions in one form, pause for input or tool approval, and resume.
-- **Unified Agent Builder:** A redesigned Tools marketplace brings together Skills, MCP, Code Interpreter, orchestration, Programmatic Tool Calling, model-spec controls, and per-tool background and intent settings.
-- **Readable Agent activity:** Generated activity-group headers, parent phase summaries, and live tool intent labels make long reasoning and tool runs easier to scan.
-- **Code Interpreter workflows:** Code and shell tools can run in the background, sandbox images return as viewable artifacts, and highly experimental stateful sessions can reuse prewarmed conversation workspaces.
-- **Agent extensibility:** Experimental Agent Plugins can bundle deployment Skills, MCP servers, and opt-in command hooks, while explicit subagents initialize only when selected.
-- **Memory, context, and identity:** Agents can manage memory with optional per-agent isolation, expose support contacts safely, and show a more faithful Context Usage gauge.
-- **Sharing and files:** Shared conversations show a badge and update at a stable URL, while signed-in viewers can continue them as personal copies.
-- **Artifact workflows:** Open previews fullscreen, work with PowerPoint `.potx` templates across upload, search, and code execution, upload shell scripts across common MIME variants, export Mermaid diagrams as SVG or PNG, and download original Office files from the artifact panel.
-- **Models and reasoning:** Added GPT-5.6 with Responses API reasoning controls, Claude Opus 5 and Sonnet 5, Gemini 3.7 and 3.6 Flash, and Gemini 3.5 Flash-Lite.
-- **Langfuse observability:** Configure encrypted Langfuse connections in-app, let authorized admins open sampled sessions directly, optionally fan out traces by tenant, and suppress central export per run.
-- **Administration and security:** Delegate config sections, encrypt registered secrets, enforce SSRF checks for speech, OCR, and web tools, and generate unique temporary credentials when secrets are blank.
-- **Messages and navigation:** Right-aligned user turns, unified multi-part editing, full-message copy, a dock-style message rail, virtualized search, smooth streaming, and faster Agent startup.
-- **Streaming and tool reliability:** Adaptive provider smoothing, Redis delta batching, dynamic MCP tool refresh, parsed MCP response media types, runtime OAuth recovery, and Agent stream circuit breakers improve long-running workflows.
-- **Deployment and reliability:** Added configurable HTTP timeouts, Amazon DocumentDB 5.0+ support, low-noise Redis and browser observability, and a rolling-upgrade-safe generation protocol.
+The project stops before submitting a job or immigration application. It is an information and research tool, not an automated applicant, immigration adviser, or law firm.
 
-Read the [full v0.8.8-rc1 changelog](https://www.librechat.ai/changelog/v0.8.8-rc1).
+## What Works Today
 
-# ✨ Features
+- **Chat-first entry:** a visitor can open the product and start from a normal chat screen without registering first.
+- **Progressive access:** the current prototype allows 5 guest turns, then supports a local account flow with a 10-turn free tier. Standard and advanced limits are represented in code, but payment is not connected.
+- **Progressive profiling:** the assistant can ask focused follow-up questions, extract supported facts, show the proposed profile, and require confirmation before saving it.
+- **Multilingual interface:** Simplified Chinese, Traditional Chinese, and English product strings are included. Simplified Chinese is the primary product language.
+- **Advanced-feature gates:** deep research, document input, evidence export, and extended data work are restricted to the advanced tier in the current policy model.
+- **Local document parsing:** TXT, Markdown, and DOCX text extraction is implemented with size and format limits. PDF parsing is not implemented yet.
+- **Voice capture prototype:** local recording and playback are implemented; transcription is visibly marked as pending.
+- **Evidence research sample:** a New Zealand visa-medical topic demonstrates a source registry, official-page refresh, version hashes, freshness checks, rights checks, citation validation, gaps, and gated export.
+- **Accounts and isolation prototype:** local account persistence is separated from the public evidence store. This is not yet a production identity system.
 
-- 🖥️ **UI & Experience** inspired by ChatGPT with enhanced design and features
+The live preview is available at [avenory.vaffyn.com](https://avenory.vaffyn.com/). Availability can change while deployment work is in progress.
 
-- 🤖 **AI Model Selection**:  
-  - Anthropic (Claude), AWS Bedrock, OpenAI, Azure OpenAI, Google, Vertex AI, OpenAI Responses API (incl. Azure)
-  - [Custom Endpoints](https://www.librechat.ai/docs/quick_start/custom_endpoints): Use any OpenAI-compatible API with LibreChat, no proxy required
-  - Compatible with [Local & Remote AI Providers](https://www.librechat.ai/docs/configuration/librechat_yaml/ai_endpoints):
-    - Ollama, groq, Cohere, Mistral AI, Apple MLX, koboldcpp, together.ai,
-    - OpenRouter, Helicone, Perplexity, ShuttleAI, Deepseek, Qwen, and more
+## What Is Not Finished
 
-- 🔧 **[Code Interpreter API](https://www.librechat.ai/docs/features/code_interpreter)**: 
-  - Secure, Sandboxed Execution in Python, Node.js (JS/TS), Go, C/C++, Java, PHP, Rust, and Fortran
-  - Seamless File Handling: Upload, process, and download files directly
-  - No Privacy Concerns: Fully isolated and secure execution
-  - Open-Source & Self-Hostable: powered by [ClickHouse/code-interpreter](https://github.com/ClickHouse/code-interpreter)
+- Production payments, subscriptions, refunds, invoices, or real charging.
+- Production authentication, account recovery, email or SMS verification, and abuse controls.
+- Live job aggregation across multiple platforms and external data connectors.
+- Automated housing, school, or map research.
+- Production voice transcription and PDF resume parsing.
+- A complete country-by-country policy source registry.
+- Automated job applications, application tracking, or outreach to employers.
+- Production deployment hardening and a clean full frontend build on a fresh machine.
 
-- 🔦 **Agents & Tools Integration**:  
-  - **[LibreChat Agents](https://www.librechat.ai/docs/features/agents)**:
-    - No-Code Custom Assistants: Build specialized, AI-driven helpers
-    - Agent Marketplace: Discover and deploy community-built agents
-    - Collaborative Sharing: Share agents with specific users and groups
-    - Flexible & Extensible: Use MCP Servers, tools, file search, code execution, and more
-    - [Skills](https://www.librechat.ai/docs/features/skills): Create reusable `SKILL.md` instruction bundles for manual, automatic, or always-on agent workflows
-    - [Agent Plugins](https://www.librechat.ai/docs/features/agent_plugins): Experimentally bundle deployment Skills and MCP servers into startup-loaded packages
-    - [Subagents](https://www.librechat.ai/docs/features/subagents): Delegate focused work to isolated child agent runs with their own context windows
-    - Compatible with Custom Endpoints, OpenAI, Azure, Anthropic, AWS Bedrock, Google, Vertex AI, Responses API, and more
-    - [Model Context Protocol (MCP) Support](https://modelcontextprotocol.io/clients#librechat) for Tools
+No API key, user record, private deployment file, or production payment configuration is included in this repository.
 
-- 🔍 **Web Search**:  
-  - Search the internet and retrieve relevant information to enhance your AI context
-  - Combines search providers, content scrapers, and result rerankers for optimal results
-  - **Customizable Jina Reranking**: Configure custom Jina API URLs for reranking services
-  - **[Learn More →](https://www.librechat.ai/docs/features/web_search)**
+## Product Principles
 
-- 🪄 **Generative UI with Code Artifacts**:  
-  - [Code Artifacts](https://youtu.be/GfTj7O4gmd0?si=WJbdnemZpJzBrJo3) create React, HTML, and Mermaid content directly in chat
-  - Open previews fullscreen and export Mermaid diagrams as SVG or PNG
+1. **Ask before concluding.** Request only missing facts whose answers can materially change the next research step.
+2. **Confirm before saving.** Extracted profile facts remain proposals until the user confirms them.
+3. **Official sources before summaries.** Policy research should start from a maintained source registry and re-check authoritative pages when freshness matters.
+4. **Show uncertainty.** Missing pages, stale versions, conflicts, and unverified claims must remain visible.
+5. **Research is not representation.** The product does not submit applications or silently cross into regulated individual advice.
+6. **Paid depth, not paid truth.** Paid tiers may fund more retrieval and analysis, but basic answers must not become less accurate on purpose.
 
-- 🎨 **Image Generation & Editing**
-  - Text-to-image and image-to-image with [GPT-Image-1](https://www.librechat.ai/docs/features/image_gen#1--openai-image-tools-recommended)
-  - Text-to-image with [DALL-E (3/2)](https://www.librechat.ai/docs/features/image_gen#2--dalle-legacy), [Stable Diffusion](https://www.librechat.ai/docs/features/image_gen#3--stable-diffusion-local), [Flux](https://www.librechat.ai/docs/features/image_gen#4--flux), or any [MCP server](https://www.librechat.ai/docs/features/image_gen#5--model-context-protocol-mcp)
-  - Produce stunning visuals from prompts or refine existing images with a single instruction
+## Repository Map
 
-- 💾 **Presets & Context Management**:  
-  - Create, Save, & Share Custom Presets  
-  - Switch between AI Endpoints and Presets mid-chat
-  - Edit, Resubmit, and Continue Messages with Conversation branching  
-  - Create and share prompts with specific users and groups
-  - [Fork Messages & Conversations](https://www.librechat.ai/docs/features/fork) for Advanced Context control
+| Path | Purpose |
+| --- | --- |
+| `client/src/components/Overseas` | Guest chat, profile confirmation, membership gates, document and voice UI, research screen |
+| `packages/api/src/guest` | Intake response validation, quotas, sessions, local accounts, and profile updates |
+| `packages/api/src/research` | Source registry, fetch and parse pipeline, evidence validation, version store, and export |
+| `packages/data-provider/src/types` | Shared guest, profile, membership, and research contracts |
+| `packages/data-schemas/src/preview` | Isolated preview persistence |
+| `e2e` | Guest, preparation, and research browser scenarios |
+| `THIRD_PARTY_NOTICES.md` | Upstream LibreChat attribution and license reference |
 
-- 💬 **Multimodal & File Interactions**:  
-  - Upload and analyze images with Claude 3, GPT-4.5, GPT-4o, o1, Llama-Vision, and Gemini 📸  
-  - Chat with Files using Custom Endpoints, OpenAI, Azure, Anthropic, AWS Bedrock, & Google 🗃️
+## Local Development
 
-- 🌎 **Multilingual UI**:
-  - English, 中文 (简体), 中文 (繁體), العربية, Deutsch, Español, Français, Italiano
-  - Polski, Português (PT), Português (BR), Русский, 日本語, Svenska, 한국어, Tiếng Việt
-  - Türkçe, Nederlands, עברית, Català, Čeština, Dansk, Eesti, فارسی
-  - Suomi, Magyar, Հայերեն, Bahasa Indonesia, ქართული, Latviešu, ไทย, ئۇيغۇرچە
+Prerequisites follow the upstream project: Node.js 24, npm, MongoDB, and the services required by the LibreChat base.
 
-- 🧠 **Reasoning UI**:  
-  - Dynamic Reasoning UI for Chain-of-Thought/Reasoning AI models like DeepSeek-R1
+```bash
+git clone https://github.com/UniversVincent/vaffyn-global-opportunity.git
+cd vaffyn-global-opportunity
+npm ci
+npm run build:data-provider
+npm run frontend:dev
+```
 
-- 🎨 **Customizable Interface**:  
-  - Customizable Dropdown & Interface that adapts to both power users and newcomers
+The evidence sample is a separate local service and requires absolute, separate directories for public evidence and private preview accounts:
 
-- 🌊 **[Resumable Streams](https://www.librechat.ai/docs/features/resumable_streams)**:  
-  - Never lose a response: AI responses automatically reconnect and resume if your connection drops
-  - Multi-Tab & Multi-Device Sync: Open the same chat in multiple tabs or pick up on another device
-  - Production-Ready: Works from single-server setups to horizontally scaled deployments with Redis
+```bash
+npm --workspace packages/data-schemas run build:preview
+npm --workspace packages/api run build:research
+RESEARCH_DATA_DIR=/absolute/public-evidence \
+VAFFYN_LOCAL_ACCOUNTS_DIR=/absolute/private-accounts \
+npm --workspace packages/api run start:research
+```
 
-- 🗣️ **Speech & Audio**:  
-  - Chat hands-free with Speech-to-Text and Text-to-Speech  
-  - Automatically send and play Audio  
-  - Supports OpenAI, Azure OpenAI, and Elevenlabs
+AI-backed intake is disabled unless the operator explicitly enables it and supplies server-side configuration. Never commit a real key:
 
-- 📥 **Import & Export Conversations**:  
-  - Import Conversations from LibreChat, ChatGPT, Chatbot UI  
-  - Export conversations as screenshots, markdown, text, json
+```dotenv
+VAFFYN_ENABLE_LOCAL_AI=true
+VAFFYN_INTAKE_MODEL=your-supported-model
+OPENAI_API_KEY=your-server-side-key
+```
 
-- 🔍 **Search & Discovery**:  
-  - Search all messages/conversations
+The setup is still being simplified. See the [official LibreChat documentation](https://www.librechat.ai/docs) for the underlying services.
 
-- 👥 **Multi-User & Secure Access**:
-  - Multi-User, Secure Authentication with OAuth2, LDAP, & Email Login Support
-  - Built-in Moderation, and Token spend tools
+## Verification Status
 
-- 🎛️ **[Admin Panel](https://www.librechat.ai/docs/features/admin_panel)**:
-  - Browser-based UI to manage users, groups, roles, and configuration overrides
-  - Edit settings and per-role/group permissions live, without redeploying
-  - Bundled with the Docker Compose stacks for one-command setup
+Verified locally for this preview:
 
-- ⚙️ **Configuration & Deployment**:  
-  - Configure Proxy, Reverse Proxy, Docker, & many Deployment options  
-  - Use [S3 with CloudFront](https://www.librechat.ai/docs/configuration/cdn/cloudfront) for stable media links, edge delivery, signed cookies, and secured downloads
-  - Use completely local or deploy on the cloud
+- 9 focused client suites, 65 tests passing;
+- 3 guest, membership, and research API suites, 63 tests passing;
+- the custom research TypeScript projects compile successfully; and
+- the public preview root returned HTTP 200 on 2026-09-17.
 
-- 📖 **Open-Source & Community**:  
-  - Completely Open-Source & Built in Public  
-  - Community-driven development, support, and feedback
+Known blocker: the full production Vite build currently stops on an unresolved local `@codesandbox/sandpack-client` dependency. The focused tests and custom TypeScript builds pass, but a clean production build has not yet been demonstrated. See [`ROADMAP.md`](ROADMAP.md).
 
-[For a thorough review of our features, see our docs here](https://docs.librechat.ai/) 📚
+## Contributing
 
-## 🪶 All-In-One AI Conversations with LibreChat
+The most useful early contributions are reproducible setup fixes, source-validation tests, accessibility improvements, account isolation review, and small country or job-source registry additions with primary-source evidence.
 
-LibreChat is a self-hosted AI chat platform that unifies all major AI providers in a single, privacy-focused interface.
+Read [`CONTRIBUTING.md`](CONTRIBUTING.md), [`SECURITY.md`](SECURITY.md), and the [`ROADMAP.md`](ROADMAP.md) before opening a pull request.
 
-Beyond chat, LibreChat provides AI Agents, Model Context Protocol (MCP) support, Artifacts, Code Interpreter, custom actions, conversation search, and enterprise-ready multi-user authentication.
+## Open Source Support
 
-Open source, actively developed, and built for anyone who values control over their AI infrastructure.
+The maintainer is applying to OpenAI's open-source support programs. Any awarded API credits or tooling access will be used for public maintenance work: issue triage, test coverage, dependency and security review, source-verification tooling, accessibility, documentation, and reproducible deployment. Support will not be represented as product endorsement or proof that unfinished features work.
 
----
+## License and Attribution
 
-## 🌐 Resources
+This project is a derivative of [LibreChat](https://github.com/danny-avila/LibreChat), distributed under the MIT License. The upstream license and copyright notice remain in [`LICENSE`](LICENSE), with additional attribution in [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md).
 
-**GitHub Repo:**
-  - **RAG API:** [github.com/danny-avila/rag_api](https://github.com/danny-avila/rag_api)
-  - **Website:** [github.com/LibreChat-AI/librechat.ai](https://github.com/LibreChat-AI/librechat.ai)
-
-**Other:**
-  - **Website:** [librechat.ai](https://librechat.ai)
-  - **Documentation:** [librechat.ai/docs](https://librechat.ai/docs)
-  - **Blog:** [librechat.ai/blog](https://librechat.ai/blog)
-
----
-
-## 📝 Changelog
-
-Keep up with the latest updates by visiting the releases page and notes:
-- [Releases](https://github.com/danny-avila/LibreChat/releases)
-- [Changelog](https://www.librechat.ai/changelog) 
-
-**⚠️ Please consult the [changelog](https://www.librechat.ai/changelog) for breaking changes before updating.**
-
----
-
-## ⭐ Star History
-
-<p align="center">
-  <a href="https://www.star-history.com/?type=date&repos=danny-avila%2FLibreChat">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=danny-avila/LibreChat&type=date&theme=dark&legend=top-left&sealed_token=CXsk3L39t1nlibOv3pQloYwrz8R_yXxCAe1X3DG8sEnmu3PZvzSRZGf7JvisknF83yXqMwR6IcuKLolIQBulChAOseTYP1TDglfT6clOHXzspF-DJhmmsnGasrGpLfCeOEU56Bx761CJp9xDxza5rbyXW3F1GqWNtDf9pMroBq86vS70ilRWu16VyucF" />
-      <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=danny-avila/LibreChat&type=date&legend=top-left&sealed_token=CXsk3L39t1nlibOv3pQloYwrz8R_yXxCAe1X3DG8sEnmu3PZvzSRZGf7JvisknF83yXqMwR6IcuKLolIQBulChAOseTYP1TDglfT6clOHXzspF-DJhmmsnGasrGpLfCeOEU56Bx761CJp9xDxza5rbyXW3F1GqWNtDf9pMroBq86vS70ilRWu16VyucF" />
-      <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=danny-avila/LibreChat&type=date&legend=top-left&sealed_token=CXsk3L39t1nlibOv3pQloYwrz8R_yXxCAe1X3DG8sEnmu3PZvzSRZGf7JvisknF83yXqMwR6IcuKLolIQBulChAOseTYP1TDglfT6clOHXzspF-DJhmmsnGasrGpLfCeOEU56Bx761CJp9xDxza5rbyXW3F1GqWNtDf9pMroBq86vS70ilRWu16VyucF" />
-    </picture>
-  </a>
-</p>
-
-<p align="center">
-  <a href="https://trendshift.io/repositories/4685" target="_blank" style="padding: 10px;">
-    <img src="https://trendshift.io/api/badge/repositories/4685" alt="danny-avila%2FLibreChat | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/>
-  </a>
-  <a href="https://runacap.com/ross-index/q1-24/" target="_blank" rel="noopener" style="margin-left: 20px;">
-    <img style="width: 260px; height: 56px" src="https://runacap.com/wp-content/uploads/2024/04/ROSS_badge_white_Q1_2024.svg" alt="ROSS Index - Fastest Growing Open-Source Startups in Q1 2024 | Runa Capital" width="260" height="56"/>
-  </a>
-</p>
-
----
-
-## ✨ Contributions
-
-Contributions, suggestions, bug reports and fixes are welcome!
-
-For new features, components, or extensions, please open an issue and discuss before sending a PR.
-
-If you'd like to help translate LibreChat into your language, we'd love your contribution! Improving our translations not only makes LibreChat more accessible to users around the world but also enhances the overall user experience. Please check out our [Translation Guide](https://www.librechat.ai/docs/translation).
-
----
-
-## 💖 This project exists in its current state thanks to all the people who contribute
-
-<a href="https://github.com/danny-avila/LibreChat/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=danny-avila/LibreChat" />
-</a>
-
----
-
-## 🎉 Special Thanks
-
-We thank [Locize](https://locize.com) for their translation management tools that support multiple languages in LibreChat.
-
-<p align="center">
-  <a href="https://locize.com" target="_blank" rel="noopener noreferrer">
-    <img src="https://github.com/user-attachments/assets/d6b70894-6064-475e-bb65-92a9e23e0077" alt="Locize Logo" height="50">
-  </a>
-</p>
+Changing product branding does not erase upstream authorship. Some internal package names remain unchanged for compatibility.

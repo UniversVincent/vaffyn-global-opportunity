@@ -106,7 +106,9 @@ function ensureRumProxyAuth(proxyUrl: string): void {
 
     return originalFetch(input, init);
   };
-  window.fetch = Object.assign(patchedFetch, { preconnect: window.fetch.preconnect });
+  window.fetch = Object.assign(patchedFetch, {
+    preconnect: 'preconnect' in window.fetch ? window.fetch.preconnect : undefined,
+  });
   rumProxyFetchPatched = true;
 }
 

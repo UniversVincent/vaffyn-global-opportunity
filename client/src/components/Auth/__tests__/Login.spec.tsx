@@ -1,7 +1,7 @@
 import * as reactRouter from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
 import type { TStartupConfig } from 'librechat-data-provider';
-import { getByTestId, render, waitFor } from 'test/layout-test-utils';
+import { act, getByTestId, render, waitFor } from 'test/layout-test-utils';
 import * as endpointQueries from '~/data-provider/Endpoints/queries';
 import * as miscDataProvider from '~/data-provider/Misc/queries';
 import * as authMutations from '~/data-provider/Auth/mutations';
@@ -37,7 +37,7 @@ const mockStartupConfig = {
   },
 };
 
-const setup = ({
+const setup = async ({
   useGetUserQueryReturnValue = {
     isLoading: false,
     isError: false,
@@ -101,6 +101,9 @@ const setup = ({
       <Login />
     </AuthLayout>,
   );
+  await act(async () => {
+    await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+  });
   return {
     ...renderResult,
     mockUseLoginUser,
@@ -120,8 +123,8 @@ jest.mock('react-router-dom', () => ({
   }),
 }));
 
-test('renders login form', () => {
-  const { getByLabelText, getByRole } = setup();
+test('renders login form', async () => {
+  const { getByLabelText, getByRole } = await setup();
   expect(getByLabelText(/email/i)).toBeInTheDocument();
   expect(getByLabelText(/password/i)).toBeInTheDocument();
   expect(getByTestId(document.body, 'login-button')).toBeInTheDocument();
@@ -156,7 +159,7 @@ test('renders login form', () => {
 
 test('calls loginUser.mutate on login', async () => {
   const mutate = jest.fn();
-  const { getByLabelText } = setup({
+  const { getByLabelText } = await setup({
     // @ts-ignore - we don't need all parameters of the QueryObserverResult
     useLoginUserReturnValue: {
       isLoading: false,
@@ -173,11 +176,11 @@ test('calls loginUser.mutate on login', async () => {
   await userEvent.type(passwordInput, 'password');
   await userEvent.click(submitButton);
 
-  waitFor(() => expect(mutate).toHaveBeenCalled());
+  await waitFor(() => expect(mutate).toHaveBeenCalled());
 });
 
 test('Navigates to / on successful login', async () => {
-  const { getByLabelText } = setup({
+  const { getByLabelText } = await setup({
     // @ts-ignore - we don't need all parameters of the QueryObserverResult
     useLoginUserReturnValue: {
       isLoading: false,
@@ -203,5 +206,5 @@ test('Navigates to / on successful login', async () => {
   await userEvent.type(passwordInput, 'password');
   await userEvent.click(submitButton);
 
-  waitFor(() => expect(window.location.pathname).toBe('/'));
+  await waitFor(() => expect(window.location.pathname).toBe('/'));
 });

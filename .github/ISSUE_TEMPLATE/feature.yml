@@ -1,0 +1,29 @@
+name: Feature proposal
+description: Propose a focused product or research improvement.
+title: "[Feature]: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: User problem
+      description: Describe the concrete user need before describing a solution.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Proposed scope
+      description: Explain the smallest useful change and what remains out of scope.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Sources and constraints
+      description: For policy or data features, include primary sources, dates, usage rights, and expected external cost.
+  - type: textarea
+    id: privacy
+    attributes:
+      label: Privacy and safety
+      description: Explain any personal data, account, payment, regulated-advice, or third-party action involved.
