@@ -25,6 +25,11 @@ jobs:
           node-version: 24.16.0
           cache: npm
       - run: npm ci
+      - name: Build shared workspaces
+        run: |
+          npm run build:data-provider
+          npm run build:client-package
+          npm --workspace packages/data-schemas run build:preview
       - name: Focused client tests
         working-directory: client
         run: >-

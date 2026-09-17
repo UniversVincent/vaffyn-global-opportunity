@@ -86,6 +86,7 @@ git clone https://github.com/UniversVincent/vaffyn-global-opportunity.git
 cd vaffyn-global-opportunity
 npm ci
 npm run build:data-provider
+npm run build:client-package
 npm run frontend:dev
 ```
 
